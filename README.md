@@ -164,12 +164,3 @@ file = m.find('myfile.doc')
 m.rename(file, 'my_file.doc')
 ```
 
-## Support
-
-**Contact Original Authors,**
-- [mega@odwyer.software](mailto:mega@odwyer.software)
-- [UK Python Development Agency](https://odwyer.software/)
-
-**Modified for Pyrogram by,**
-- [Itz-fork](https://github.com/Itz-fork)
-- [Support Group](https://t.me/Nexa_bots)
