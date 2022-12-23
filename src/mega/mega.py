@@ -757,7 +757,6 @@ class Mega:
             mac_encryptor = AES.new(k_str, AES.MODE_CBC,
                                     mac_str.encode("utf8"))
             iv_str = a32_to_str([iv[0], iv[1], iv[0], iv[1]])
-
             for chunk_start, chunk_size in get_chunks(file_size):
                 chunk = input_file.read(chunk_size)
                 chunk = aes.decrypt(chunk)
@@ -784,9 +783,12 @@ class Mega:
                 if dlstats_msg is None:
                     return
                 else:
-                    dlstats_msg.edit_text(f"File: `{file_name}`\n\n📥 Downloaded: **{humanize.naturalsize(file_info.st_size)}/{humanize.naturalsize(file_size)}**", reply_markup=CANCEL_BUTTON, disable_web_page_preview=True)
-                    logger.info('%s of %s downloaded', file_info.st_size, file_size)
-            
+                    try:
+                       dlstats_msg.edit_text(f"File: `{file_name}`\n\n📥 Downloaded: **{humanize.naturalsize(file_info.st_size)}/{humanize.naturalsize(file_size)}**", reply_markup=CANCEL_BUTTON, disable_web_page_preview=True)
+                    except:
+                        pass
+                    
+            logger.info('Downloaded: %s of %s', file_info.st_size, file_size)            
             file_mac = str_to_a32(mac_str)
             # check mac integrity
             if (file_mac[0] ^ file_mac[1],
@@ -859,18 +861,18 @@ class Mega:
                                                 timeout=self.timeout)
                     completion_file_handle = output_file.text
                     # Edit status message
-                    uploadstatus_msg.edit(f"File: `{os.path.basename(filename)}`\n\n📤 Uploaded: **{humanize.naturalsize(upload_progress)}/{humanize.naturalsize(file_size)}**", disable_web_page_preview=True, reply_markup=CANCEL_BUTTON)
-                    logger.info('%s of %s uploaded', upload_progress,
-                                file_size)
+                    try:
+                        uploadstatus_msg.edit_text(f"File: `{os.path.basename(filename)}`\n\n📤 Uploaded: **{humanize.naturalsize(upload_progress)}/{humanize.naturalsize(file_size)}**", disable_web_page_preview=True, reply_markup=CANCEL_BUTTON)
+                    except:
+                        pass
+                    
             else:
                 output_file = requests.post(ul_url + "/0",
                                             data='',
                                             timeout=self.timeout)
                 completion_file_handle = output_file.text
 
-            logger.info('Chunks uploaded')
-            logger.info('Setting attributes to complete upload')
-            logger.info('Computing attributes')
+            logger.info('uploaded: %s of %s', upload_progress, file_size)
             file_mac = str_to_a32(mac_str)
 
             # determine meta mac
