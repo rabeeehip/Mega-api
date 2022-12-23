@@ -46,11 +46,12 @@ logger = logging.getLogger(__name__)
 #         return str(round(size, 2)) + " " + Dic_powerN[n] + 'B'
 
 # Cancel Button
-CANCEL_BUTTN=InlineKeyboardMarkup(
+
+CANCEL_BUTTON = InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "Cancel ❌", callback_data="cancelvro"
+                        "cancel", callback_data="cancel_mega"
                     )
                 ]
             ]
@@ -860,7 +861,7 @@ class Mega:
                                                 timeout=self.timeout)
                     completion_file_handle = output_file.text
                     # Edit status message
-                    uploadstatus_msg.edit(f"**Starting to Upload The Content! This may take while 😴** \n\n📑 **Info,** \n  ⊳ **File Name:** `{os.path.basename(filename)}` \n\n📊 **Progress,** \n  ⊳ **Total File Size:** `{humanize.naturalsize(file_size)}` \n  ⊳ **Uploaded:** `{humanize.naturalsize(upload_progress)}`", disable_web_page_preview=True)
+                    uploadstatus_msg.edit(f"File: `{os.path.basename(filename)`\n\n**Uploaded:** `{humanize.naturalsize(upload_progress)}/{humanize.naturalsize(file_size)}`", disable_web_page_preview=True, reply_markup=CANCEL_BUTTON)
                     logger.info('%s of %s uploaded', upload_progress,
                                 file_size)
             else:
