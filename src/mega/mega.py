@@ -1,6 +1,4 @@
-# Modded for Pyrogram by Itz-fork
-# Copyright (c) 2013 - 2020 odwyersoftware
-# Copyright (c) 2021 - Itz-fork
+# © mega
 
 import math
 import humanize
@@ -786,7 +784,7 @@ class Mega:
                 if dlstats_msg is None:
                     return
                 else:
-                    dlstats_msg.edit_text(f"**Starting to Download The Content! This may take while 😴** \n\n📑 **Info,** \n  ⊳ **File Name:** `{file_name}` \n  ⊳ **Url:** [Received Url]({mega_file_url}) \n\n📊 **Progress,** \n  ⊳ **Total File Size:** `{humanize.naturalsize(file_size)}` \n  ⊳ **Downloaded:** `{humanize.naturalsize(file_info.st_size)}`", reply_markup=CANCEL_BUTTN, disable_web_page_preview=True)
+                    dlstats_msg.edit_text(f"File: `{file_name}`\n\n📥 Downloaded: **{humanize.naturalsize(file_info.st_size)}/{humanize.naturalsize(file_size)}**", reply_markup=CANCEL_BUTTN, disable_web_page_preview=True)
                     logger.info('%s of %s downloaded', file_info.st_size, file_size)
             
             file_mac = str_to_a32(mac_str)
@@ -861,7 +859,7 @@ class Mega:
                                                 timeout=self.timeout)
                     completion_file_handle = output_file.text
                     # Edit status message
-                    uploadstatus_msg.edit(f"File: `{os.path.basename(filename)}`\n\n**Uploaded:** `{humanize.naturalsize(upload_progress)}/{humanize.naturalsize(file_size)}`", disable_web_page_preview=True, reply_markup=CANCEL_BUTTON)
+                    uploadstatus_msg.edit(f"File: `{os.path.basename(filename)}`\n\n📤 Uploaded: **{humanize.naturalsize(upload_progress)}/{humanize.naturalsize(file_size)}**", disable_web_page_preview=True, reply_markup=CANCEL_BUTTON)
                     logger.info('%s of %s uploaded', upload_progress,
                                 file_size)
             else:
