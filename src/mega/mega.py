@@ -784,7 +784,7 @@ class Mega:
                 if dlstats_msg is None:
                     return
                 else:
-                    dlstats_msg.edit_text(f"File: `{file_name}`\n\n📥 Downloaded: **{humanize.naturalsize(file_info.st_size)}/{humanize.naturalsize(file_size)}**", reply_markup=CANCEL_BUTTN, disable_web_page_preview=True)
+                    dlstats_msg.edit_text(f"File: `{file_name}`\n\n📥 Downloaded: **{humanize.naturalsize(file_info.st_size)}/{humanize.naturalsize(file_size)}**", reply_markup=CANCEL_BUTTON, disable_web_page_preview=True)
                     logger.info('%s of %s downloaded', file_info.st_size, file_size)
             
             file_mac = str_to_a32(mac_str)
